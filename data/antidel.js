@@ -14,7 +14,7 @@ const AntiDelDB = DATABASE.define('AntiDelete', {
     },
     dm_status: {
         type: DataTypes.BOOLEAN,
-        defaultValue: false,
+        defaultValue: true,
     },
 }, {
     tableName: 'antidelete',
@@ -33,7 +33,7 @@ async function initializeAntiDeleteSettings() {
         await AntiDelDB.sync();
         await AntiDelDB.findOrCreate({
             where: { id: 1 },
-            defaults: { gc_status: false, dm_status: false },
+            defaults: { gc_status: false, dm_status: true },
         });
         isInitialized = true;
     } catch (error) {
